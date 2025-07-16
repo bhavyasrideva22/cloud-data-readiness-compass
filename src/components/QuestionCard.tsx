@@ -32,29 +32,29 @@ export const QuestionCard = ({ question, onAnswer, currentAnswer }: QuestionCard
       <CardContent className="space-y-6">
         {question.type === 'likert' && (
           <div className="space-y-4">
-            <div className="space-y-3">
-              {[1, 2, 3, 4, 5].map((value) => (
-                <div key={value} className="flex items-center space-x-3">
-                  <RadioGroupItem
-                    value={value.toString()}
-                    id={`option-${value}`}
-                    checked={answer === value}
-                    onClick={() => setAnswer(value)}
-                    className="cursor-pointer"
-                  />
-                  <Label 
-                    htmlFor={`option-${value}`}
-                    className="cursor-pointer flex-1 py-2 px-3 rounded-lg hover:bg-accent transition-colors"
-                  >
-                    <div className="flex justify-between items-center">
-                      <span>{value}</span>
-                      {value === 1 && <span className="text-sm text-muted-foreground">{question.minLabel}</span>}
-                      {value === 5 && <span className="text-sm text-muted-foreground">{question.maxLabel}</span>}
-                    </div>
-                  </Label>
-                </div>
-              ))}
-            </div>
+            <RadioGroup value={answer?.toString() || ''} onValueChange={(value) => setAnswer(parseInt(value))}>
+              <div className="space-y-3">
+                {[1, 2, 3, 4, 5].map((value) => (
+                  <div key={value} className="flex items-center space-x-3">
+                    <RadioGroupItem
+                      value={value.toString()}
+                      id={`option-${value}`}
+                      className="cursor-pointer"
+                    />
+                    <Label 
+                      htmlFor={`option-${value}`}
+                      className="cursor-pointer flex-1 py-2 px-3 rounded-lg hover:bg-accent transition-colors"
+                    >
+                      <div className="flex justify-between items-center">
+                        <span>{value}</span>
+                        {value === 1 && <span className="text-sm text-muted-foreground">{question.minLabel}</span>}
+                        {value === 5 && <span className="text-sm text-muted-foreground">{question.maxLabel}</span>}
+                      </div>
+                    </Label>
+                  </div>
+                ))}
+              </div>
+            </RadioGroup>
           </div>
         )}
 
